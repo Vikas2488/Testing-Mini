@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    environment {
+        name='vikas'
+    }
+    parameters {
+       string(name:'person' ,defaultValue:'vicky kumare', description: 'who r you')
+       booleanParam(name:'ismale' ,defaultValue:'true', description: '')
+       choice(name:'city' , choices: ['moradabad','himgiri colony'], description: '')
+     
+     
+    }
+    stages {
+        stage('run a command') {
+            steps {
+                sh '''
+                ls
+                date
+                pwd
+                cal 2021
+                '''
+                
+             
+                
+            }
+        }    
+            
+        stage('build') {
+            steps {
+                echo 'build'
+            }
+        }    
+            
+        stage('continue') {
+            input {
+               message "shuold we continue?"
+               ok "yes we should"
+            }
+            
+            steps {
+                echo 'deploy'
+            }
+        }    
+            
+        stage('deploying') {
+            steps {
+                echo'deploying'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'i awlays say hello again'
+            
+        }
+        failure{
+            echo 'failure'
+        }
+        success{
+            echo 'success'
+        }    
+    }
+}
